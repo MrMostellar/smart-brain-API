@@ -1,19 +1,18 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const knex = require('knex');
 
-const database = {
-    users:[
-        {   
-            id: '100',
-            name: 'Andrew',
-            email: 'abc123@gmail.com',
-            password: 'password',
-            entries: 0,
-            joined: new Date()
-        },
-    ]
-}  
+const db = knex({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      port : 5432,
+      user : 'postgres',
+      password : 'Phosphorus1!',
+      database : 'postgres'
+    }
+  });
 
 const app = express();
 app.use(express.json());
@@ -24,7 +23,7 @@ app.use(cors());
 //How to handle when a user requests to sign in with their data from a profile that exists:
 app.post('/signin', (req, res) => {
     if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        res.json('success');
+        res.json(database.users[0]);
     } else{
         res.status(400).json('Incorrect email or password..');
     }
@@ -32,16 +31,13 @@ app.post('/signin', (req, res) => {
 
 //How to handle when a user sends data to register a new profile:
 app.post('/signup', (req, res) =>{
-    const {name, email, password} = req.body
-    database.users.push({
-        id: '102',
+    const {name, email, password} = req.body;
+    db('users').insert({
         name: name,
         email: email,
-        password: password,
-        entries: 0,
         joined: new Date()
-    })
-    res.json(database.users[database.users.length -1]);
+    }).then(console.log);
+    res.json(db('users').select([0]));
 });
 
 app.get('/profile/:id', (req, res) =>{
