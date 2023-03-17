@@ -1,36 +1,41 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
+const knex = require('knex');
+const signIn = require('./controllers/signIn');
+const signUp = require('./controllers/signUp');
+const profile = require('./controllers/profile');
+const imageCount = require('./controllers/image');
+const apiCall = require('./controllers/imageUrl');
 
-const database = {
-    users:[
-        {
-            name: 'Andrew',
-            email: 'abc123@gmail.com',
-            password: 'password',
-            entries: 0
-        },
-        {
-            name: 'Sally',
-            email: 'sally@gmail.com',
-            password: 'password2',
-            entries: 5
-        }
-    ]
-}  
+const db = knex({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      port : 5432,
+      user : 'postgres',
+      password : 'Phosphorus1!',
+      database : 'postgres'
+    }
+  });
 
 const app = express();
 app.use(express.json());
 app.use(express.text());
+app.use(cors());
+
 // app.use(express.urlencoded({extended: false}));
 
-app.post('/signin', (req, res) => {
-    if(req.body.email === database.users[0].email && req.body.password === database.users[0].password){
-        res.json('success');
-    } else{
-        res.status(400).json('error signing in..');
-    }
-});
+//How to handle when a user requests to sign in with their data from a profile that exists:
+app.post('/signin', (req, res) => {signIn.handleSignIn(req, res, db, bcrypt)});
 
-    //request access by submitting a new user, email, and password
-    //post/request entry score
+//How to handle when a user sends data to register a new profile:
+app.post('/signup', (req, res) => {signUp.handleSignUp(req, res, db, bcrypt)});
+
+app.get('/profile/:id', (req, res) =>{profile.handleprofile(req, res, db)});
+
+app.post('/imageUrl', (req, res) => {apiCall.handleApiCall(req, res)});
+
+app.put('/image', (req, res) =>{imageCount.handleImageCount(req, res, db)});
 
 app.listen(3000);
