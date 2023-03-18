@@ -1,8 +1,6 @@
 const handleSignUp = (req, res, db, bcrypt) => {
     const {name, email, password} = req.body;
     const saltRounds = 10;
-    const userExists = db.select('*').from('users');
-    console.log(userExists, email);
 
     if(!name || !email || !password){
         return res.status(400).json('Invalid Submission');

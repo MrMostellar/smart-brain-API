@@ -12,7 +12,7 @@ require('dotenv').config();
 const db = knex({
     client: 'pg',
     connection: {
-      host : 'dpg-cgb2ogpmbg55nqkqijrg-a.oregon-postgres.render.com',
+      host : 'dpg-cgb2ogpmbg55nqkqijrg-a.oregon-postgres.render.com?ssl=true',
       port : 5432,
       user : 'mostellar',
       password : `${process.env.DB_PASSWORD}`,
