@@ -7,15 +7,16 @@ const signUp = require('./controllers/signUp');
 const profile = require('./controllers/profile');
 const imageCount = require('./controllers/image');
 const apiCall = require('./controllers/imageUrl');
+require('dotenv').config();
 
 const db = knex({
     client: 'pg',
     connection: {
-      host : '127.0.0.1',
+      host : 'dpg-cgb2ogpmbg55nqkqijrg-a.oregon-postgres.render.com',
       port : 5432,
-      user : 'postgres',
-      password : 'Phosphorus1!',
-      database : 'postgres'
+      user : 'mostellar',
+      password : `${process.env.DB_PASSWORD}`,
+      database : 'smart_brain_db_zcgo'
     }
   });
 
