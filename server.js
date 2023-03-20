@@ -36,7 +36,7 @@ app.post('/signup', (req, res) => {signUp.handleSignUp(req, res, db, bcrypt)});
 
 app.get('/profile/:id', (req, res) =>{profile.handleprofile(req, res, db)});
 
-app.post('/imageUrl', (req, res) => {apiCall.handleApiCall(req, res, fetch)});
+app.post('/imageUrl', (req, res) => {apiCall.handleApiCall(req, res)});
 
 app.put('/image', (req, res) =>{imageCount.handleImageCount(req, res, db)});
 
