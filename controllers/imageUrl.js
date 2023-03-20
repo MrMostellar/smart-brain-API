@@ -32,17 +32,15 @@ const handleApiCall = (req, res) => {
                 'Accept': 'application/json',
                 'Authorization': 'Key ' + PAT
             },
-            body: raw
+            body: raw,
         };
     
         fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
         .then(response => response.json())
         .then(result => {
             if(result){
-                console.log(res.json());
                 return res.json(result);
             } else{
-                console.log(res.json());
                 return res.status(400).json('No image');
             }
         })
