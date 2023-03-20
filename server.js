@@ -8,6 +8,7 @@ const profile = require('./controllers/profile');
 const imageCount = require('./controllers/image');
 const apiCall = require('./controllers/imageUrl');
 require('dotenv').config();
+require('node-fetch');
 
 const db = knex({
     client: 'pg',
