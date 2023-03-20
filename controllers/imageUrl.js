@@ -35,19 +35,19 @@ const handleApiCall = (req, res) => {
         };
     
         fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/versions/" + MODEL_VERSION_ID + "/outputs", requestOptions)
-    .then(response => response.json())
-    .then(result => {
-        if(result){
-            console.log(res.json());
-            return res.json(result);
-        } else{
-            console.log(res.json());
-            return res.status(400).json('No image');
-        }
-    })
-    .catch(err => {
-        console.log(err);
-    })
+        .then(response => response.json())
+        .then(result => {
+            if(result){
+                console.log(res.json());
+                return res.json(result);
+            } else{
+                console.log(res.json());
+                return res.status(400).json('No image');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 module.exports = {handleApiCall};
