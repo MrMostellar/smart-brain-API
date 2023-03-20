@@ -1,3 +1,4 @@
+const fetch = require('node-fetch');
 const handleApiCall = (req, res, fetch) => {
     // Your PAT (Personal Access Token) can be found in the portal under Authentification
     const PAT = '1be12b20d7574e88b1de317e782e7353';
