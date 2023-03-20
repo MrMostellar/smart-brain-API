@@ -8,7 +8,7 @@ const profile = require('./controllers/profile');
 const imageCount = require('./controllers/image');
 const apiCall = require('./controllers/imageUrl');
 require('dotenv').config();
-require('node-fetch');
+const fetch = require('node-fetch');
 
 const db = knex({
     client: 'pg',
@@ -37,7 +37,7 @@ app.post('/signup', (req, res) => {signUp.handleSignUp(req, res, db, bcrypt)});
 
 app.get('/profile/:id', (req, res) =>{profile.handleprofile(req, res, db)});
 
-app.post('/imageUrl', (req, res) => {apiCall.handleApiCall(req, res)});
+app.post('/imageUrl', (req, res) => {apiCall.handleApiCall(req, res, fetch)});
 
 app.put('/image', (req, res) =>{imageCount.handleImageCount(req, res, db)});
 
